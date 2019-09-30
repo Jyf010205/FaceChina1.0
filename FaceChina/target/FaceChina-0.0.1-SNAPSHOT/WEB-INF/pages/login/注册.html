@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>建立属于你的账户</title>
+
+<!-- Core CSS -->
+<link href="login/css/bootstrap.min.css" rel="stylesheet">
+<link href="login/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="login/css/login.css" rel="stylesheet">
+
+<!-- Checkboxes style -->
+<link href="login/css/bootstrap-checkbox.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div class="login-menu">
+		<div class="container">
+			<nav class="nav">
+				<a class="nav-link active" id="zhuce" href="login.fc">注册</a> <a
+					class="nav-link " id="denglu" href="enter.fc">登录</a>
+			</nav>
+		</div>
+	</div>
+
+	<div class="container h-100">
+		<div class="row h-100 justify-content-center align-items-center">
+
+			<div class="card">
+				<h4 class="card-header">注册新账户</h4>
+				<div class="card-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>用户名</label>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1"><i
+												class="fa fa-user-o" aria-hidden="true"></i></span>
+										</div>
+										<input type="text" name="name" value="" class="form-control"
+											id="inputName" required />
+									</div>
+									<div class="help-block with-errors text-danger"></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>邮箱</label>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1"><i
+												class="fa fa-envelope-open-o" aria-hidden="true"></i></span>
+										</div>
+										<input type="email" class="form-control" id="inputEmail" name="email" value=""
+											required>
+									</div>
+									<div class="help-block with-errors text-danger"></div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>验证码</label>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon2"><i
+												class="fa fa-envelope-open-o" aria-hidden="true"></i></span>
+										</div>
+										<input type="text" class="form-control" id="inputEmailYanZhengMa" name="emailyanzhengma" value=""
+											required="required" placeholder="请点击按钮发送">
+										<div id="yanzhengfasong">
+										<a role="button" class="btn btn-info" id="dianjifasong" href="#">点击发送</a>
+										</div>
+									</div>
+									<div class="help-block with-errors text-danger"></div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>电话号码</label>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1"><i
+												class="fa fa-phone bigfonts" aria-hidden="true"></i></span>
+										</div>
+										<input type="text" class="form-control" name="phonenum" id="inputPhoneNum" required>
+									</div>
+									<div class="help-block with-errors text-danger"></div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>密码</label>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1"><i
+												class="fa fa-lock" aria-hidden="true"></i></span>
+										</div>
+										<input type="password" id="inputPassWord" data-minlength="6"
+											name="password" class="form-control"
+											data-error="Password to short" required />
+									</div>
+									<div class="help-block with-errors text-danger"></div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>确认密码</label>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1"><i
+												class="fa fa-lock" aria-hidden="true"></i></span>
+										</div>
+										<input type="password" id="inputPasswordConfirm"
+											name="password2" class="form-control"
+											data-match="#inputPassword"
+											data-match-error="Password must be the same in both fields"
+											required />
+									</div>
+									<div class="help-block with-errors text-danger"></div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="mb-3"></div>
+
+						<div class="row" id="zhuce1">
+							<div class="col-md-12">
+							<!-- 	<input type="submit" class="btn btn-primary btn-lg btn-block" 
+									value="确认注册" name="submit" id="zhuce" /> -->
+					<input type="button" class="btn btn-primary btn-lg btn-block" value="确认注册" onclick="doZhuCe()">
+									<!-- <button id="zhuce" >123</button> -->
+							</div>
+						</div>
+					
+
+					<div class="clear"></div>
+
+					<i class="fa fa-undo fa-fw"></i> 已有账户? <a href="enter.fc">账户登陆</a>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+
+
+	<!-- Core Scripts -->
+	 <script src="login/js/jquery-1.10.2.min.js"></script>
+	 <script src="login/js/bootstrap.bundle.min.js"></script> 
+	<!-- 注册 -->
+	<script type="text/javascript">
+		$(function(){
+			/* $("#zhuce1") .on("click","#zhuce",doZhuCe), */
+			$("#yanzhengfasong") .on("click","#dianjifasong",dofasong)
+		})
+		
+		function doZhuCe(){
+			var params={
+					user_name:$("#inputName").val(),
+					user_password:$("#inputPassWord").val(),
+					user_email:$("#inputEmail").val(),
+					user_phonenum:$("#inputPhoneNum").val(),
+					secondPwd:$("#inputPasswordConfirm").val(),
+					intFlag:$("#inputEmailYanZhengMa").val()
+			}
+			var url="doSaveZhuCeUser.fc";
+			$.post(url,params,function(result){
+				if(result.state==1){
+					alert(result.message);
+					location.href="enter.fc?t="+Math.random();
+				}else{
+					alert(result.message);
+				}
+			});
+		}
+		
+		function dofasong(){
+				
+			if($("#inputEmail").val()==""){
+				//按钮不可用 #dianjifasong按钮id
+				$("#dianjifasong").attr("disabled","true");
+				$("#dianjifasong").val("邮箱地址未填");
+				setTimeout(function(){
+					$("#dianjifasong").removeAttr("disabled");
+					$("#dianjifasong").val("发送验证码");
+				},900);
+				return;
+			}
+			 $("#dianjifasong").attr("value","正在发送");
+             $("#dianjifasong").attr("disabled","true");
+             
+             
+             $.ajax({
+            	 
+            	 url:"mail.fc",
+                 type:"GET",
+                 //发送数据的第一种格式，字符串...
+                 data:"mail="+$("#inputEmail").val(),
+                 timeout:5000,
+                 success:function(data){
+                     $("#dianjifasong").attr("value","验证码已发送");
+                     alert("邮件已发送");
+                 },
+                 error:function(){
+                 }
+             });
+		}
+		
+	</script>
+</body>
+</html>

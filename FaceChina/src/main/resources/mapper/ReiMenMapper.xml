@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.main.dao.ReiMenDao">
+
+	<select id="getShuosOrderByLikecount" resultType="com.fc.main.entity.Shuo">
+		select shuo_id ,shuo_text,shuo_createtime,shuo_likecount,picture_src
+		from shuo,shuo_picture,picture
+		where shuo.shuo_id = shuo_picture.shuo_picture_shuoid
+		and shuo_picture.shuo_picture_pictureid = picture.picture_id
+		order by shuo_likecount desc
+		limit 10
+	</select>
+	<!-- 点赞操作：通过shuo_id更新shuo_likecount的值 -->
+	<update id="updateLikeCount">
+		update shuo set shuo_likecount=shuo_likecount+1 where shuo_id=#{shuo_id}
+	</update>
+</mapper>

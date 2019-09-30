@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.main.dao.FindnotfriendDao">
+
+	<select id="findnotfriend" resultType="com.fc.main.entity.FindnotfriendUser">
+		select
+		user_id,user_name,user_age,user_gender,
+		user_colleage,user_pictureid
+		from user
+		where user_id not in (select friend_friendid from friend
+		where friend_userid=#{id}) and user_id!=#{id}
+	</select>
+	
+	<insert id="insertfriend">
+	insert into friend (friend_userid,friend_friendid)  
+	values (#{friend_userid},#{friend_friendid})
+	
+	
+	</insert>
+	
+	
+
+</mapper>
+
+
+

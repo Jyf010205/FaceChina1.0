@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.main.dao.XiangCeDao">
+	<insert id="insert" parameterType="com.fc.main.entity.Image">
+		insert into picture
+		(picture_name,picture_src)
+		values
+		(#{picture_name},#{picture_src})
+	</insert>
+	<insert id="insertSrc" parameterType="int">
+		insert into user_picture
+		(user_picture_userid,user_picture_pictureid)
+		values
+		(#{user_picture_userid},#{user_picture_pictureid})
+	</insert>
+	<update id="updatehead" parameterType="int">
+		update user
+		set
+		user_pictureid=#{user_pictureid}
+		where user_id=#{user_id}
+	</update>
+	
+	
+	<select id="findSrc" resultType="String">
+		select picture_src 
+		from picture,user_picture
+		where picture.picture_id = user_picture.user_picture_pictureid
+		and user_picture.user_picture_userid=#{user_id}
+	</select>
+	
+  <!-- 基于shuoId查找pictureid -->
+  <select id="findcpictureidByshuoId" resultType="int">
+  	select shuo_picture_pictureid
+  </select>
+  <select id="findpictureidBypicturename" resultType="int">
+  	select picture_id from picture
+  	where picture_name=#{picture_name}
+  </select>
+  <select id="finduserprctureurl" resultType="String">
+  	select picture_src from picture,user
+  	where user.user_pictureid = picture.picture_id 
+  	and user.user_id = #{user_id}
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</mapper>

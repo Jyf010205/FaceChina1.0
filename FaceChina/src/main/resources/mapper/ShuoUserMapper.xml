@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+       
+<mapper namespace="com.fc.main.dao.ShuoUserDao">
+	<insert id="insertReleationShip">
+		insert into user_shuo
+		(user_shuo_id,user_shuo_userid,user_shuo_shuoid) 
+		values
+		(null,#{user_shuo_userid},#{user_shuo_shuoid}) 
+	</insert>
+</mapper>
+

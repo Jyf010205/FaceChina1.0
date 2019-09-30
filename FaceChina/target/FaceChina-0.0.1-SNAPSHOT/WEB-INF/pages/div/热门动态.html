@@ -1,0 +1,125 @@
+
+	<!-- end row -->
+	
+<div class="container-fluid">
+
+
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="breadcrumb-holder">
+				<h1 class="main-title float-left">热门动态</h1>
+				<ol class="breadcrumb float-right">
+					<li class="breadcrumb-item">首页</li>
+					<li class="breadcrumb-item active">热门动态</li>
+				</ol>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"
+			style="margin: auto; width: 700px; height: auto;" id="hotcontent">
+			
+		</div>
+
+	</div>
+
+
+</div>
+<!-- END container-fluid -->
+
+<script type="text/javascript">
+   $(function(){
+	   //发起异步请求获取数据 
+	   //debugger
+	   var url="doGetReiMen.fc";
+	   $.getJSON(url,function(result){
+		   if(result.state==1){
+			   console.log("热门result",result);
+		  	   //动态创建10个DIV并把数据绑定到对应位置
+		   	   doDrawDiv(result.data)
+		   }
+		   else
+			   alert(result.message)
+	   })
+	   
+	   //点赞操作 
+	   $("#hotcontent").on("click",".dianzan",function(){
+		   var url="doDianZan.fc";
+		   var shuo_id=$(this).parents("div").parents("div").parents("div").data("shuo_id");
+		   var param={"shuo_id":shuo_id}
+		   console.log("param",param);
+		   $.post(url,param,function(result){
+			   if(result.state==1){
+			   	alert("点赞成功");
+			   	//document.getElementByC("dianzan").setAttribute("disabled", true)
+			   	$(this).attr("disabled",true);
+			   	$(".content").load("reimendt.fc");
+			   }else{
+				   alert(result.message);
+			   }
+		   })
+	   })
+	   
+   });
+   function doDrawDiv(datas){
+	   console.log("datas",datas);
+	   var div=$("#hotcontent");
+	  // div.empty();
+	   //迭代数据 动态创建cardDiv 
+	   for(i=0;i<datas.length;i++){
+		   var Div = $("<div class='card mb-3'></div>");
+		   Div.data("shuo_id",datas[i].shuo_id);
+		   var cardDiv=doCardDiv(datas[i]);
+		   //将每行数据绑定到子DIV上  pull-right
+		   Div.append(cardDiv)
+		   div.append(Div);
+		   console.log("创建了第",i+1,"个div")
+	   }
+   }
+   
+   function doCardDiv(data){
+	   var cdiv=
+	   				"<div class='card-header' style='width:'><h3><a target='_blank' id='name'> 全球热门排行榜"+(i+1)+"</a></h3>"+
+	   				"</div>"+
+	   				
+	   				"<div class='card-body'>"+
+	   					"<div class='card' style='width: 20rem; margin: auto;' id='picture'>"+
+	   						"<img class='card-img-top' src='"+data.picture_src+"' alt='Card image cap' />"+
+	   					"</div>"+
+	   					"<div class='card-body'>"+
+	   						"<p class='card-text' id='shuoshuo'>"+data.shuo_text+"</p>"+
+	   					"</div>"+
+	   					"<div class='pull-right'>"+
+	   						/* "<a href='#'>"+
+	   							"<button type='button' class='btn btn-primary btn-sm' >转发</button>"+
+	   						"</a>"+ */
+	   						"<a href='#'>"+
+   								"<button type='button' class='dianzan btn btn-primary btn-sm dianzan"+(i+1)+"'>点赞("+data.shuo_likecount+")</button>"+
+   							"</a>"+
+	   					"</div>"+
+	   				"</div>"+
+	   				"<div class='card-footer small text-muted' style='width: 100%;' id='time'>Create at "+ timestampToTime(data.shuo_createtime)+
+	   				"</div>";
+/* 	    		$("#dianzan"+(i+1)).data("shuo_id",data.shuo_id)
+	    		console.log("#dianzan"+(i+1))
+	    		console.log(data.shuo_id)
+	    		console.log($("#dianzan"+(i+1)).data("shuo_id")) */
+		return 	cdiv;    		
+   }
+   
+   function timestampToTime(timestamp) {
+       //var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+       var date = new Date(timestamp);
+       Y = date.getFullYear() + '-';
+       M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+       D = date.getDate() + ' ';
+       h = date.getHours() + ':';
+       m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+       s = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
+       return Y+M+D+h+m+s;
+   }
+   
+</script>

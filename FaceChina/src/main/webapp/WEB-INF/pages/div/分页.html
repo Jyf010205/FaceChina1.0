@@ -1,0 +1,64 @@
+<ul class="pagination pagination-sm no-margin pull-right">
+	<li><a class="first">首页</a></li>
+	<li><a class="pre">上一页</a></li>
+	<li><a class="next">下一页</a></li>
+	<li><a class="last">尾页</a></li>
+	<li><a class="rowCount">总记录数(0)</a></li>
+	<li><a class="pageCount">总页数(0)</a></li>
+	<li><a class="pageCurrent">当前页(1)</a></li>
+</ul>
+<script type="text/javascript">
+	$(function(){
+		//事件注册 
+		$("#pageId").on("click",".first,.pre,.next,.last",doJumpToPage);
+	});
+	function doJumpToPage(){
+		//取值 
+		var pageCurrent=$("#pageId").data("pageCurrent");
+		var pageCount=$("#pageId").data("pageCount");
+		
+		var cls=$(this).prop("class")
+		//基于class属性xiugai 当前页
+			switch(cls){
+			case "first":
+				pageCurrent=1;
+				break;
+			case "pre":
+				if(pageCurrent==1)
+					alert("目前已是第一页");
+				if(pageCurrent>1){
+					pageCurrent-=1;
+				}
+				break;
+			case "next":
+				if(pageCurrent==pageCount){
+					alert("目前已是最后一页");
+				}
+				if(pageCurrent<pageCount){
+					pageCurrent+=1;
+				}
+				break;
+			case "last":
+				pageCurrent=pageCount;
+			}
+			
+		    $("#pageId").data("pageCurrent",pageCurrent);
+		    $("#pageId").data("pageCount",pageCount);
+			doGetObjects()
+	}
+
+
+  function doSetPageAtion(pageObject){
+	  //总页数
+	  console.log(pageObject);
+	  $(".pageCount").html("总页数("+pageObject.pageCount+")");
+	  //总记录数 
+	  $(".rowCount").html("总记录数("+pageObject.rowCount+")");
+	  //当前页数 
+	  $(".pageCurrent").html("当前页("+pageObject.pageCurent+")");
+	  //存值 为其他方法使用 
+	 $("#pageId").data("pageCurrent",pageObject.pageCurent);
+	 $("#pageId").data("pageCount",pageObject.pageCount);
+  }
+</script>
+

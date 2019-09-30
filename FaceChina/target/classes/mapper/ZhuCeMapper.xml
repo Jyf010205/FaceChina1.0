@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 注册新用户（注册界面字段） -->
+<mapper namespace="com.fc.main.dao.ZhuCeDao">
+	  <insert id="insert" 
+	  parameterType="com.fc.main.entity.ZhuCeUser">
+	   insert into user (user_name,user_password,user_email,user_phonenum,user_salt) 
+	   values 
+	   (#{user_name},#{user_password},#{user_email},#{user_phonenum},#{user_salt})
+	  </insert>
+	   <select id="findZhuCeUser" resultType="com.fc.main.entity.ZhuCeUser">
+	  	select user_name,user_email,user_phonenum from user
+	  	where user_name=#{user_name}
+	  </select> 
+	   <select id="findUserByUserEmail" resultType="com.fc.main.entity.ZhuCeUser">
+	  	select * from user
+	  	where user_email=#{user_email}
+	  </select> 
+	  
+</mapper>

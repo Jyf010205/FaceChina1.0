@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.main.dao.GeRenDongTaiDao">
+	<select id="findGeRenShuo" resultType="com.fc.main.vo.GeRenShuoVO">
+		select  
+			user.user_name,
+			user_shuo.user_shuo_userid,
+			user_shuo.user_shuo_shuoid,
+			shuo.shuo_text,
+			shuo.shuo_createtime,
+			shuo_picture.shuo_picture_pictureid,
+			picture.picture_name,
+			picture.picture_src
+		from user 
+			left join user_shuo on user.user_id=user_shuo.user_shuo_userid
+			left join shuo on user_shuo.user_shuo_shuoid=shuo.shuo_id
+			left join shuo_picture on shuo.shuo_id=shuo_picture.shuo_picture_shuoid
+			left join picture on shuo_picture.shuo_picture_pictureid=picture.picture_id
+		where user_email=#{user_email}
+		order by shuo_createtime desc
+	</select>
+	<select id="findGeRenPingLun" resultType="com.fc.main.vo.GeRenPingLunVO">
+		select  
+			shuo.shuo_id,
+			shuo_ping.shuo_ping_pingid,
+			ping.ping_userid,
+			ping.ping_createtime,
+			ping.ping_content,
+			user.user_name
+		from shuo 
+			left join shuo_ping on shuo.shuo_id=shuo_ping.shuo_ping_shuoid
+			left join ping on shuo_ping.shuo_ping_pingid=ping.ping_id
+			right join user on ping.ping_userid=user.user_id
+		where shuo.shuo_id=#{shuo_id}
+		order by ping_createtime desc
+	</select>
+	
+	<select id="getShuoCount" resultType="int">
+		select 
+			count(distinct user_shuo.user_shuo_shuoid)
+		from 
+			user,user_shuo
+		where 
+			user.user_id=user_shuo.user_shuo_userid
+			and user.user_email=#{user_email}
+	</select>
+	
+	<select id="getPingCount" resultType="int">
+		select 
+			count(shuo_ping_pingid)
+		from shuo_ping
+		where shuo_ping_shuoid=#{shuo_ping_shuoid}
+	</select>
+	
+	<delete id="deleteUserShuoByShuoId">
+		delete from user_shuo where user_shuo_shuoid=#{user_shuo_shuoid}
+	</delete>
+	
+	<delete id="deleteShuoByShuoId">
+		delete from shuo where shuo_id=#{shuo_id}
+	</delete>	
+	
+	<select id="findPingIdsByShuoId" resultType="int">
+		select shuo_ping_pingid 
+		from shuo left join shuo_ping 
+		on shuo.shuo_id=shuo_ping.shuo_ping_pingid
+		where shuo.shuo_id=#{shuo_id} 
+	</select>
+	
+	<delete id="deleteShuoPingByShuoId">
+		delete from shuo_ping where shuo_ping_shuoid=#{shuo_ping_shuoid}
+	</delete>
+	
+	<delete id="deletePingByPingIds">
+		delete from ping
+	    where ping_id in
+	    <foreach 
+	    	collection="pingIds" 
+	    	open="("
+	    	close=")"
+	    	separator=","
+	    	item="ping_id">
+			#{ping_id}
+	    </foreach>
+	</delete>	
+	
+	<select id="findPictureIdByShuoId" resultType="Integer">
+		select shuo_picture_pictureid 
+		from shuo left join shuo_picture on shuo.shuo_id=shuo_picture_shuoid
+		where shuo.shuo_id=#{shuo_id}
+	</select>
+	
+	<delete id="deleteShuoPictureByShuoId">
+		delete from shuo_picture where shuo_picture_shuoid=#{shuo_picture_shuoid}
+	</delete>	
+	
+	<delete id="deletePictureByPictureId">
+		delete from picture where picture_id=#{picture_id}
+	</delete>			
+	
+</mapper>

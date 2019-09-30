@@ -1,0 +1,192 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="breadcrumb-holder">
+				<h1 class="main-title float-left">查看好友</h1>
+				<ol class="breadcrumb float-right">
+					<li class="breadcrumb-item">好友列表</li>
+					<li class="breadcrumb-item active">查看好友</li>
+				</ol>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-13 col-sm-13 col-md-13" style="margin: auto">
+			<div class="card mb-3">
+				<div class="card-header">
+					<h3>
+						<i class="fa fa-address-book bigfonts" aria-hidden="true"></i>
+						您的好友
+					</h3>
+				</div>
+
+				<div class="card-body">
+					<div class="table-responsive">
+						<table id="example1"
+							class="table table-responsive-xl table-striped">
+							<thead>
+								<tr>
+									<th>用户头像</th>
+									<th>用户名</th>
+									<th>性别（gender）</th>
+									<th>年龄（age）</th>
+									<th>所属学校</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody id="tbodyId">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal，弹出的留言板 -->
+	<div class="modal fade custom-modal" id="customModalliuyan"
+		tabindex="-1" role="dialog" aria-labelledby="customModal"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel2">留言板</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<!-- 文本框 -->
+						<div>
+							<textarea id="content" required="" class="form-control"
+								style="margin-top: 0px; margin-bottom: 0px; height: 144px;"></textarea>
+						</div>
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">关闭</button>
+					<button id="confirm" type="button" class="btn btn-primary">提交留言</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$('#example1').DataTable();
+		doGetObjects();
+		$("#tbodyId").on("click",".btn-danger",doDelete);
+		$("#tbodyId").on("click",".btn-primary",doSave);
+		$("#customModalliuyan").on("click",".btn-primary",doInsert);
+	});
+
+	function doSave(){
+		data=$(this).parents("tr").data("data");
+	}
+	
+	function doInsert(){
+		//1.params
+		var content = $("#content").val();
+		var params={"user_id":data.user_id,"content":content};
+		console.log(params)
+		//2.url
+		var url="doInsertLiuyan.fc"
+	     //3.ajax request
+		$.post(url,params,function(result){
+			if(result.state==1){
+				alert(result.message);
+				$("#customModalliuyan").hide();
+				doGetObjects();
+			}else{
+				alert(result.message);
+			}
+		})
+	}
+	
+	function doDelete(){
+		//1.params
+		var data=$(this).parents("tr").data("data");
+		var params={"friend_friendid":data.user_id};
+		
+		//2.url
+		var url="doDeleteFriends.fc"
+	     //3.ajax request
+	    console.log(params);
+		$.post(url,params,function(result){
+			if(result.state==1){
+				alert(result.message);
+				doGetObjects();
+			}else{
+				alert(result.message);
+			}
+		})
+		   
+	 }
+	
+	function doGetObjects() {
+		//获取查询参数的值
+		//2请求url定义
+		var url = "doFindFriends.fc";
+		//3发起异步请求获取数据（借助jquery中的getJSON）
+		$.getJSON(url, function(result) {
+			doSetTableBodyRows(result.data);
+		}); //ajax(xhr)
+	}
+
+	function doSetTableBodyRows(data) {
+		//1.获取tbody对象
+		var tBody = $("#tbodyId");
+		tBody.empty(); //tBody.innerHTML=""
+		//2迭代records记录，然后追加到tbody中
+		for (var i = 0; i < data.length; i++) {
+			//2.1创建tr对象
+			var tr = $("<tr></tr>");
+			tr.data("data",data[i])
+			//2.2创建td对象
+			var tds = doCreateTds(data[i]);
+			//2.3将td追加到tr
+			tr.append(tds);
+			//2.4将tr追加到tbody
+			tBody.append(tr);
+		}
+	}
+	
+	function doCreateTds(data) {
+		var tds ="<td>"+"图片"+"</td>"
+				+ "<td>"+ data.user_name+ "</td>"
+				+ "<td>"+ data.user_gender+ "</td>"
+				+ "<td>"+ data.user_age+ "</td>"
+				+ "<td>"+ data.user_colleage + "</td>"
+				+ "<td>"+
+				"<div class='card-body'>"+
+				"<a href='#custom-modal' class='btn btn-primary m-r-5 m-b-10 btn-sm' data-target='#customModalliuyan' data-toggle='modal'>留言</a>"+
+				"<a role='button' class='btn btn-danger btn-sm'>取关</a></div>"
+				+"</td>"
+		return tds;
+		
+	}
+	
+	
+</script>
+
+<!--  
+<td>
+	<div class="card-body">
+	<a href="#custom-modal" class="btn btn-primary m-r-5 m-b-10 btn-sm" data-target="#customModalliuyan" data-toggle="modal">留言</a>
+	<a role="button" class="btn btn-danger btn-sm" href="#">取关</a>
+	</div>
+</td>
+-->
+
+
+
+
+
