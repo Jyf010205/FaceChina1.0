@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.main.dao.FSSDao">
+	<insert id="insertObject"
+		parameterType="com.fc.main.entity.TianJiaPingLunEntity"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into ping
+		(ping_id,ping_userid,ping_createtime,ping_content)
+		values
+		(null,#{ping_userid},now(),#{ping_content})
+	</insert>
+	
+	<insert id="insertpinglun">
+		insert into ping
+		(ping_userid,ping_createtime,ping_content)
+		values
+		(#{ping_userid},now(),#{ping_content})
+	</insert>
+	
+ 	<insert id="insertpingshuo">
+		insert into shuo_ping
+		(shuo_ping_shuoid,shuo_ping_pingid)
+		values
+		(#{shuo_id},#{ping_id})
+	</insert> 
+	
+	<select id="findPingshuo" resultType="int">
+		select ping_id from ping where ping_userid=#{user_id} and ping_content=#{ping_content};
+	</select>
+</mapper>
