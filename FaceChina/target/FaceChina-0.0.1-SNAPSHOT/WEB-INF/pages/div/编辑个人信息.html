@@ -1,0 +1,304 @@
+<div class="container-fluid">
+
+
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="breadcrumb-holder">
+				<h1 class="main-title float-left">个人信息</h1>
+				<ol class="breadcrumb float-right">
+					<li class="breadcrumb-item">首页</li>
+					<li class="breadcrumb-item active">个人信息</li>
+				</ol>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<!-- end row -->
+
+
+
+
+	<div class="row">
+
+
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-8"
+			style="margin: auto">
+			<div class="card mb-3">
+				<div class="card-header">
+					<h3>
+						<i class="fa fa-check-square-o"></i> 修改个人头像
+					</h3>
+
+				</div>
+
+				<div class="card-body">
+
+					<form>
+						<div class="form-group">
+							<label for="exampleInputEmail1">昵称</label> <input
+								class="form-control" id="inputnichen"
+								aria-describedby="emailHelp" placeholder=required> <small
+								id="emailHelp" class="form-text text-muted"> </small>
+						</div>
+
+						<div class="form-group">
+							<label for="exampleInputEmail1">电子邮箱</label> <input type="email"
+								class="form-control" id="inputyouxiang"
+								aria-describedby="emailHelp" placeholder="电子邮箱" required>
+							<small id="emailHelp" class="form-text text-muted"> </small>
+						</div>
+
+						<div class="form-group">
+							<label for="exampleInputgender">性别</label> <select
+								class="form-control" id="inputxingbie">
+								<option>男</option>
+								<option>女</option>
+							</select> <small id="emailHelp" class="form-text text-muted"></small>
+						</div>
+
+						<div class="form-group">
+
+
+
+
+							<div class="row">
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="exampleInputPassword1">出生年月</label> <input
+											id="inputbirthday" type="text" class="form-control"
+											placeholder="出生年月" required />
+
+
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="exampleInputPassword1">年龄</label> <input
+											id="inputage" type="text" class="form-control"
+											placeholder="年龄" required>
+
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="exampleInputPassword1">星座</label> <select
+											id="inputstar" type="text" class="form-control"
+											placeholder="星座" required>
+											<option value="白羊座">白羊座</option>
+											<option value="金牛座">金牛座</option>
+											<option value="双子座">双子座</option>
+											<option value="巨蟹座">巨蟹座</option>
+											<option value="狮子座">狮子座</option>
+											<option value="处女座">处女座</option>
+											<option value="天秤座">天秤座</option>
+											<option value="天蝎座">天蝎座</option>
+											<option value="射手座">射手座</option>
+											<option value="摩羯座">摩羯座</option>
+											<option value="水瓶座">水瓶座</option>
+											<option value="双鱼座">双鱼座</option>
+										</select>
+									</div>
+								</div>
+
+							</div>
+
+							<!--==========================================================-->
+
+
+							<div class="form-group">
+								<label for="example1">大学 </label> <select
+									class="form-control select2" id="inputcolleage" name="state">
+									<option value="北京大学">北京大学</option>
+									<option value="清华大学">清华大学</option>
+									<option value="北京邮电大学">北京邮电大学</option>
+									<option value="上海交通大学">上海交通大学</option>
+									<option value="复旦大学">复旦大学</option>
+									<option value="浙江大学">浙江大学</option>
+									<option value="哈尔滨工业大学">哈尔滨工业大学</option>
+									<option value="武汉大学">武汉大学</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>个人简介</label>
+								<div>
+									<textarea required class="form-control" id="inputjianjie"></textarea>
+								</div>
+							</div>
+
+							<button class="btn btn-primary" id="queren">确认</button>
+					</form>
+
+				</div>
+			</div>
+			<!-- end card-->
+		</div>
+	</div>
+</div>
+</div>
+<script src="assets/plugins/datetimepicker/js/moment.min.js"></script>
+<script src="assets/plugins/datetimepicker/js/daterangepicker.js"></script>
+<script type="text/javascript">
+	/* 	$(function() {
+	 $('input[name="singledatepicker"]').daterangepicker({
+	 singleDatePicker : true,
+	 showDropdowns : true
+	 });
+	 }); */
+
+	$(document).ready(function() {
+		doGetObjects();
+		$(".card-body").on("click", "#queren", modifyPI)
+	})
+
+	function doGetObjects() {
+		var url = "doPersonalInformaitonUI.fc"
+		$.getJSON(url, function(result) {
+			if (result.state == 1) {
+				doshowPI(result);
+				/* doInitFormData();//修改时 */
+			} else {
+				alert(result.message);
+			}
+		})
+	}
+
+	function doshowPI(result) {
+		/* var data=$("#mainContentId").data("rowData",result);
+		if(!data)return;
+		console.log(data)
+		$("inputnichen").val(data.user.user_name);
+		$("inputxingbie").val(data.user.user_gender);
+		$("inputyouxiang").val(data.user.user_email);
+		$("inputbirthday").val(data.user.user_birthday);
+		$("inputstar").val(data.user.user_star);
+		$("inputage").val(data.user.user_age);
+		$("inputcolleage").val(data.user.user_colleage);
+		$("inputjianjie").val(data.user.user_note); */
+		document.getElementById('inputnichen').value = result.data.user_name;
+		document.getElementById('inputxingbie').value = result.data.user_gender;
+		document.getElementById('inputyouxiang').value = result.data.user_email;
+		document.getElementById('inputbirthday').value = result.data.user_birthday;
+		document.getElementById('inputstar').value = result.data.user_star;
+		document.getElementById('inputage').value = result.data.user_age;
+		document.getElementById('inputcolleage').value = result.data.user_colleage;
+		document.getElementById('inputjianjie').value = result.data.user_note;
+
+	}
+
+	function modifyPI() {
+		var url = "doPersonalInformationUI2.fc"
+		var params = {
+			user_name : $("#inputnichen").val(),
+			user_gender : $("#inputxingbie").val(),
+			user_email : $("#inputyouxiang").val(),
+			user_birthday : $("#inputbirthday").val(),
+			user_star : $("#inputstar").val(),
+			user_age : $("#inputage").val(),
+			user_colleage : $("#inputcolleage").val(),
+			user_note : $("#inputjianjie").val()
+		}
+		$.post(url, params, function(result) {
+			if (result.state == 1) {
+				alert("修改完成");
+				$(".content").load("gerenxinxi.fc");
+			} else {
+				alert("修改失败");
+			}
+		})
+	}
+
+	/* $(function() {
+		doGetObjects();
+		$(".card-body").on("click", "#queren", PersonalInformation)
+	}) */
+
+	/* function PersonalInformation() {
+		var url = "doPersonalInformationUI2.fc"
+		var params = doGetParams();
+		debugger;
+		$.post(url, params, function(result) {
+			if (result.state == 1) {
+				alert(result.message);
+				doCancel();
+			} else {
+				alert(result.message);
+			}
+		})
+	} */
+	/* 	function doGetParams() {
+	 var params = {
+	 user_name : $("#inputnichen").val(),
+	 user_gender : $("#inputxingbie").val(),
+	 user_email : $("#inputyouxiang").val(),
+	 user_birthday : $("#inputbirthday").val(),
+	 user_star : $("#inputstar").val(),
+	 user_age : $("#inputage").val(),
+	 user_colleage : $("#inputcolleage").val(),
+	 user_note : $("#inputjianjie").val()
+	 }
+	 return params;
+	 }
+	 function doGetObjects() {
+	 var url = "doPersonalInformaitonUI.fc"
+	 //2.请求url定义
+	 var params = {
+	 user_name : $("#inputnichen").val(),
+	 user_gender : $("#inputxingbie").val(),
+	 user_email : $("#inputyouxiang").val(),
+	 user_birthday : $("#inputbirthday").val(),
+	 user_star : $("#inputstar").val(),
+	 user_age : $("#inputage").val(),
+	 user_colleage : $("#inputcolleage").val(),
+	 user_note : $("#inputjianjie").val()
+	 }
+	 //3.发起异步请求获取数据（借助jquery中的getJSON)
+	 $.getJSON(url,params, function(result) {
+	 console.log(result);
+	 doHandleResponseResult(result);
+	 });//ajax(xhr)
+	 }
+
+	 function doHandleResponseResult(result) {
+	 if (result.state == 1) {//jsonResult.state
+	 dogerenxinxi(result);
+
+	 } else {
+	 alert(result.message);
+	 }
+	 }
+
+	 function dogerenxinxi(result) {
+	 document.getElementById('inputnichen').value = result.data.user_name;
+	 document.getElementById('inputxingbie').value = result.data.user_gender;
+	 document.getElementById('inputyouxiang').value = result.data.user_email;
+	 document.getElementById('inputbirthday').value = result.data.user_birthday;
+	 document.getElementById('inputstar').value = result.data.user_star;
+	 document.getElementById('inputage').value = result.data.user_age;
+	 document.getElementById('inputcolleage').value = result.data.user_colleage;
+	 document.getElementById('inputjianjie').value = result.data.user_note;
+	 } */
+
+	/* $.ajax({
+	url : '/upload.fc',
+	type : 'POST',
+	cache : false, //上传文件不需要缓存
+	data : formData,
+	processData : false, // 告诉jQuery不要去处理发送的数据
+	contentType : false, // 告诉jQuery不要去设置Content-Type请求头
+	success : function(data) {
+		var rs = eval("(" + data + ")");
+		if (rs.state == 1) {
+			tipTopShow('上传成功！');
+		} else {
+			tipTopShow(rs.msg);
+		}
+	},
+	error : function(data) {
+		tipTopShow("上传失败");
+	}
+	})  */
+</script>
+

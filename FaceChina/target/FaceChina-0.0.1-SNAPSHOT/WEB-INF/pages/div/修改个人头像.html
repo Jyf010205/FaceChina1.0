@@ -1,0 +1,152 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="breadcrumb-holder">
+				<h1 class="main-title float-left">修改头像</h1>
+				<ol class="breadcrumb float-right">
+					<li class="breadcrumb-item">首页</li>
+					<li class="breadcrumb-item active">个人信息</li>
+				</ol>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+
+
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-8"
+			style="margin: auto">
+			<div class="card mb-3">
+				<div class="card-header">
+					<h3>
+						<i class="fa fa-check-square-o"></i> 修改个人头像
+					</h3>
+
+				</div>
+
+				<div class="card-body">
+
+					<!-- 					<form action="<%=basePath%>UploadImage" method="post"
+						id="uploadForm" enctype="multipart/form-data">
+						<input type="hidden" name="picture" value="uploadpic">
+						 <input type="file" id="pic" name="pic" /> 
+						 <input type="button" value="上传" onclick="doUpload();">
+					</form> -->
+
+
+
+					<form action="<%=basePath%>UploadImage" method="post"
+						id="uploadForm" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="updatepictrue">更改头像</label>
+
+							<div id="avatar_image">
+								<!--头像路径-->
+								<img alt="image" id="preview"
+									style="max-width: 100px; height: auto;"
+									src="assets/images/avatars/admin.png" /> <br />
+
+							</div>
+							<div id="image_deleted_text"></div>
+							<div class="m-b-10"></div>
+							<div class="form-group">
+								<label></label>
+								<!--上传头像-->
+								<div class="form-group ">
+									<input type="hidden" name="picture" value="uploadpic">
+									<!-- <input type="file" name="file" id="input_file"
+										class="form-control"
+										accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"
+										onchange="imgPreview(this)" value="uploadpic"> -->
+									<input class="form-control" type="file" id="pic" name="pic"
+										value="uploadpic" onchange="imgPreview(this)">
+								</div>
+							</div>
+						</div>
+						<input type="button" value="上传" onclick="doUpload();">
+						</td>
+						<form>
+							<!-- end card-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			doGettouxiang();
+		})
+		
+		function doGettouxiang() {
+			var url = "finduserpictureurl.fc";
+			$.getJSON(url, function(result) {
+				$("#preview").attr("src", result.message);
+			});//ajax
+		}
+
+		function doUpload() {
+			var formData = new FormData($("#uploadForm")[0]);
+			$.ajax({
+				url : 'UpdateheadController', /*这是处理文件上传的servlet*/
+				type : 'POST',
+				data : formData,
+				async : false,
+				cache : false,
+				contentType : false,
+				processData : false,
+				success : function(returndata) {
+					$(".content").empty();
+					alert("修改成功")
+					doGettouxiang();
+				},
+				error : function(returndata) {
+					alert(returndata);
+				}
+			});
+		}
+		function imgPreview(fileDom) {
+			//判断是否支持FileReader
+			if (window.FileReader) {
+				var reader = new FileReader();
+			} else {
+				alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+			}
+			//获取文件
+			var file = fileDom.files[0];
+			var imageType = /^image\//;
+			//是否是图片
+			if (!imageType.test(file.type)) {
+				alert("请选择图片！");
+				return;
+			}
+			//读取完成
+			reader.onload = function(e) {
+				//获取图片dom
+				var img = document.getElementById("preview");
+				//图片路径设置为读取的图片
+				img.src = e.target.result;
+			};
+			reader.readAsDataURL(file);
+		}
+
+		/*   $.ajax({
+		 url : '/upload.fc',
+		 type : 'POST',
+		 cache : false, //上传文件不需要缓存
+		 data : formData,
+		 processData : false, // 告诉jQuery不要去处理发送的数据
+		 contentType : false, // 告诉jQuery不要去设置Content-Type请求头
+		 success : function(data) {
+		 var rs = eval("(" + data + ")");
+		 if (rs.state == 1) {
+		 tipTopShow('上传成功！');
+		 } else {
+		 tipTopShow(rs.msg);
+		 }
+		 },
+		 error : function(data) {
+		 tipTopShow("上传失败");
+		 }
+		 })  */
+	</script>

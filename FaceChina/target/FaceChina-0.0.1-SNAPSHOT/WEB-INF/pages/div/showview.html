@@ -1,0 +1,90 @@
+
+<div class="layui-timeline">
+  <div class="card-body">
+  <li class="layui-timeline-item">
+    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+    <div class="layui-timeline-content layui-text">
+     <abc>
+     <div class="form-group">
+      <h3 class="layui-timeline-title">8月16日</h3>
+      <p>杜甫的思想核心是儒家的仁政思想，他有“致君尧舜上，再使风俗淳”的宏伟抱负。个人最爱的名篇有：</p>
+      <ul>
+        <li>《登高》</li>
+      </ul>
+      </div>
+     </abc> 
+    </div>
+  </li>
+  
+  <li class="layui-timeline-item">
+    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+    <div class="layui-timeline-content layui-text">
+      <div class="layui-timeline-title">更早</div>
+    </div>
+  </li>
+</div>
+<script>
+		$(function() {
+			
+			
+			
+
+			findall();
+
+		})
+		
+		function findall() {
+
+			var url = "doFindLiuyanAll.fc";
+			$.getJSON(url, function(result) {
+		//		console.log(result)
+				showLiuyanall(result.data.recodes);
+			})
+		}
+
+		
+		function showLiuyanall(data) {
+
+		//	console.log(111);
+
+			var h = $("abc");
+			h.empty();
+			//迭代数据
+			for (var i = 0; i < data.length; i++) {
+
+				var tds = doCreateTds(data[i])
+				h.append(tds)
+
+			}
+
+		}
+
+		function timestampToTime(timestamp) {
+			//var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+			var date = new Date(timestamp);
+			Y = date.getFullYear() + '-';
+			M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date
+					.getMonth() + 1)
+					+ '-';
+			D = date.getDate() + ' ';
+			h = date.getHours() + ':';
+			m = (date.getMinutes() < 10 ? '0' + (date.getMinutes()) : date
+					.getMinutes())
+					+ ':';
+			s = (date.getSeconds() < 10 ? '0' + (date.getSeconds()) : date
+					.getSeconds());
+			return Y + M + D + h + m + s;
+		}
+
+		function doCreateTds(data) {
+			//console.log(data);
+			var tds = "<div class='form-group'><h3 class='layui-timeline-title'>"
+					+ data.user_name
+					+ "</h3><p>"
+					+ timestampToTime(data.createtime)
+					+ "</p><ul><li>"
+					+ data.content + "</li></ul><p>--------------------------<p/></div>"
+			return tds;
+
+		}
+	</script>

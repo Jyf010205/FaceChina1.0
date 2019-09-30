@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Face-China</title>
+<meta name="description"
+	content="Free Bootstrap 4 Admin Theme | Pike Admin">
+<meta name="author"
+	content="Pike Web Development - https://www.pikephp.com">
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="assets/images/favicon123.ico">
+
+<!-- Switchery css -->
+<link href="assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
+
+<!-- Bootstrap CSS -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+
+<!-- Font Awesome CSS -->
+<link href="assets/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+
+<!-- Custom CSS -->
+<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+
+<script src="assets/js/modernizr.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/moment.min.js"></script>
+
+<!-- BEGIN CSS for this page -->
+<link href="assets/plugins/datetimepicker/css/daterangepicker.css"
+	rel="stylesheet" />
+<link href="assets/plugins/owlcarousel/owl.carousel.min.css"
+	rel="stylesheet" />
+<link href="assets/plugins/owlcarousel/owl.theme.default.min.css"
+	rel="stylesheet" />
+<link href="assets/plugins/owlcarousel/owl.carousel.min.css"
+	rel="stylesheet" />
+<link href="assets/plugins/jquery.filer/css/jquery.filer.css"
+	rel="stylesheet" />
+<link
+	href="assets/plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css"
+	rel="stylesheet" />
+<link href="assets/plugins/owlcarousel/owl.theme.default.min.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet" href="assets/css/showview.css" media="all">
+<style>
+.owl-carousel .item-video {
+	height: 300px;
+}
+
+.counter {
+	font-size: 3.5rem;
+}
+
+td.details-control {
+	background: url('assets/plugins/datatables/img/details_open.png')
+		no-repeat center center;
+	cursor: pointer;
+}
+
+tr.shown td.details-control {
+	background: url('assets/plugins/datatables/img/details_close.png')
+		no-repeat center center;
+}
+</style>
+<!-- END CSS for this page -->
+
+</head>
+
+<body class="adminbody">
+
+	<div id="main">
+		<!--204行开始内容-->
+		<!-- top bar navigation -->
+		<div class="headerbar">
+
+			<!-- LOGO -->
+			<div class="headerbar-left">
+				<a href="hello.fc" class="logo"><img alt="logo"
+					src="assets/images/logo.png" /> <span>Face-China</span></a>
+			</div>
+
+			<nav class="navbar-custom">
+
+				<ul class="list-inline float-right mb-0">
+
+
+
+
+					<li class="list-inline-item dropdown notif"><a
+						class="nav-link dropdown-toggle arrow-none" href="#custom-modal"
+						role="button" aria-haspopup="false" aria-expanded="false"
+						data-target="#customModal" data-toggle="modal"> <i
+							class="fa fa-user-circle bigfonts"></i><span class="notif-bullet"></span>
+					</a> <!-- Modal 登陆页面-->
+						<div class="modal fade custom-modal" id="customModal"
+							tabindex="-1" role="dialog" aria-labelledby="customModal"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+
+
+									<div class="modal-body">
+										<div class="form-group">
+											<!-- *************-->
+
+											<div class="card">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel2">登录</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">×</span>
+													</button>
+												</div>
+
+												<div class="card-body">
+													<p class="login-box-msg">Sign in to start your session</p>
+													<form data-toggle="validator" role="form" method="post"
+														action="core/login.php">
+														<div class="row">
+															<div class="col-md-12">
+																<div class="form-group">
+																	<label>登录邮箱</label>
+																	<div class="input-group">
+																		<div class="input-group-prepend">
+																			<span class="input-group-text" id="basic-addon1"><i
+																				class="fa fa-envelope-open-o" aria-hidden="true"></i></span>
+																		</div>
+																		<!--email-->
+																		<input id="email" type="email" class="form-control"
+																			name="login_email" data-error="Input valid email"
+																			required>
+																	</div>
+																	<div class="help-block with-errors text-danger"></div>
+																</div>
+															</div>
+														</div>
+
+														<div class="row">
+															<div class="col-md-12">
+																<div class="form-group">
+																	<label>用户密码</label>
+																	<div class="input-group">
+																		<div class="input-group-prepend">
+																			<span class="input-group-text" id="basic-addon1"><i
+																				class="fa fa-unlock" aria-hidden="true"></i></span>
+																		</div>
+																		<!--密码-->
+																		<input id="password" type="password"
+																			data-minlength="6" name="login_password"
+																			class="form-control" data-error="Password to short"
+																			required />
+																	</div>
+																	<div class="help-block with-errors text-danger"></div>
+																</div>
+															</div>
+														</div>
+
+														<div class="row">
+															<div class="checkbox checkbox-primary">
+																<input id="checkbox_remember" type="checkbox"
+																	name="remember"> <label for="checkbox_remember">记住我</label>
+															</div>
+														</div>
+
+														<div class="row">
+															<div class="col-md-12">
+																<input type="hidden" name="redirect" value="" />
+																<!--表单按钮-->
+																<!--<input id="submit" type="submit"
+																	class="btn btn-primary btn-lg btn-block" value="登录"
+																	name="submit" />-->
+																<input type="button"
+																	class="btn btn-primary btn-lg btn-block" value="登录"
+																	onclick="doLogin()">
+															</div>
+														</div>
+													</form>
+
+													<div class="clear"></div>
+
+													<i class="fa fa-user fa-fw"></i><a href="#" id="zhuce">
+														注册账号</a><br /> <i class="fa fa-undo fa-fw"></i><a href="reset.fc"
+														id="zhaohuimima"> 找回密码</a>
+
+												</div>
+
+											</div>
+
+
+											<!-- *************** -->
+										</div>
+
+									</div>
+
+								</div>
+							</div></li>
+
+					<li class="list-inline-item dropdown notif"><a
+						class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown"
+						href="#" role="button" aria-haspopup="false" aria-expanded="false">
+							<i class="fa fa-fw fa-envelope-o"></i><span class="notif-bullet"></span>
+					</a>
+						<div
+							class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-arrow-success dropdown-lg">
+
+							<!-- item-->
+							<div class="dropdown-item noti-title">
+								<h5>
+									<small><span
+										class="label label-danger pull-xs-right messageCount">0</span>留言消息</small>
+								</h5>
+							</div>
+							<div class="pre-scrollable" style="height: 200px; overflow: auto">
+								<!-- item-->
+								<h> <a href="#" class="dropdown-item notify-item">
+									<p class="notify-details ml-0">
+										<b><!-- Jokn Doe --></b> <span><!-- New message received --></span> <small
+											class="text-muted"><!-- 2 minutes ago --></small>
+									</p>
+								</a> </h>
+							</div>
+							<!-- All-->
+							<a href="#" class="dropdown-item notify-item notify-all"
+								id="showview"> 查看全部 </a>
+
+						</div></li>
+					<li class="list-inline-item dropdown notif"><a
+						class="nav-link dropdown-toggle nav-user" data-toggle="dropdown"
+						href="#" role="button" aria-haspopup="false" aria-expanded="false">
+							<img src="assets/images/avatars/admin.png" alt="Profile image"
+							class="avatar-rounded" id="touxiangsrc">
+					</a>
+						<div class="dropdown-menu dropdown-menu-right profile-dropdown">
+							<!-- item-->
+							<div class="dropdown-item noti-title">
+								<h5 class="text-overflow">
+									<small>欢迎您</small>
+								</h5>
+							</div>
+
+							<!-- item-->
+							<a href="#" class="dropdown-item notify-item" id="gerenxinxi">
+								<i class="fa fa-user"></i> <span> 个人信息</span>
+							</a> <a href="#" class="dropdown-item notify-item"
+								id="xiugaitouxiang"> <i class="fa fa-smile-o"></i> <span>
+									修改个人头像</span>
+							</a>
+
+							<!-- item-->
+							<a href="#l" class="dropdown-item notify-item" id="xiugaimima">
+								<i class="fa fa-key bigfonts"></i> <span>修改密码</span>
+							</a>
+
+							<!-- item-->
+							<a href="doLogout.fc" class="dropdown-item notify-item"
+								id="dengchu"> <i class="fa fa-power-off"></i> <span>
+									登出</span>
+							</a>
+						</div></li>
+
+				</ul>
+
+				<ul class="list-inline menu-left mb-0">
+					<li class="float-left">
+						<button class="button-menu-mobile open-left">
+							<i class="fa fa-fw fa-bars"></i>
+						</button>
+					</li>
+				</ul>
+
+			</nav>
+
+		</div>
+		<!-- End Navigation -->
+
+
+		<!-- Left Sidebar -->
+		<div class="left main-sidebar">
+
+			<div class="sidebar-inner leftscroll">
+
+				<div id="sidebar-menu">
+
+					<ul>
+						<li class="submenu">
+							<!--  <a class="active" href="#" id="reimendongtai"><i class="fa fa-free-code-camp bigfonts"></i><span> 热门动态 </span></span> </a>-->
+							<a href="#" id="reimendongtai"><i
+								class="fa fa-free-code-camp bigfonts"></i><span> 热门动态 </span></span> </a>
+						</li>
+
+
+
+						<li class="submenu"><a href="#" id="haoyoudongtai"><i
+								class="fa fa-fw fa-area-chart"></i><span> 好友动态 </span> </a></li>
+						<li class="submenu"><a href="#"><i
+								class="fa fa-address-book-o bigfonts bigfonts"></i> <span>
+									个人空间 </span> <span class="menu-arrow"></span></a> <!-- active表示选中-->
+							<ul class="list-unstyled">
+								<li><a href="#" id="gerenxiangce">个人相册</a></li>
+								<li><a href="#" id="gerendongtai">个人动态</a></li>
+							</ul></li>
+						<li class="submenu"><a href="#"><i
+								class="fa fa-address-book bigfonts bigfonts"></i> <span>
+									好友列表 </span> <span class="menu-arrow"></span></a>
+							<ul class="list-unstyled">
+								<li><a href="#" id="tianjiahaoyou">添加好友</a></li>
+								<li><a href="#" id="chakanhaoyou">查看好友</a></li>
+							</ul></li>
+
+
+
+
+					</ul>
+
+					<div class="clearfix"></div>
+
+				</div>
+
+				<div class="clearfix"></div>
+
+			</div>
+
+		</div>
+		<!-- End Sidebar -->
+
+
+		<div class="content-page">
+
+			<!-- Start content -->
+			<!--开始内容-->
+			<div class="content">
+
+				<!--  <div class="container-fluid">-->
+				<!-- 此处为局部加载页面区域 -->
+
+				<!--</div>-->
+
+
+
+
+				<!--  </div>-->
+
+
+			</div>
+			<!-- END content -->
+
+		</div>
+		<!-- END content-page -->
+
+		<footer class="footer">
+			<span class="text-right"> Copyright <a target="_blank">Your
+					Website</a>
+			</span> <span class="float-right"> Powered by <a target="_blank"><b>Pike
+						Admin</b></a>
+			</span>
+		</footer>
+
+	</div>
+	<!-- END main -->
+
+	<script src="assets/js/modernizr.min.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/moment.min.js"></script>
+
+	<script src="assets/js/popper.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+
+	<script src="assets/js/detect.js"></script>
+	<script src="assets/js/fastclick.js"></script>
+	<script src="assets/js/jquery.blockUI.js"></script>
+	<script src="assets/js/jquery.nicescroll.js"></script>
+	<script src="assets/js/jquery.scrollTo.min.js"></script>
+	<script src="assets/plugins/switchery/switchery.min.js"></script>
+	<script src="assets/js/showview.js"></script>
+
+	<!-- App js -->
+	<script src="assets/js/pikeadmin.js"></script>
+
+	<!-- BEGIN Java Script for this page -->
+	<script src="assets/plugins/datetimepicker/js/moment.min.js"></script>
+	<script src="assets/plugins/datetimepicker/js/daterangepicker.js"></script>
+	<script src="assets/plugins/jquery.filer/js/jquery.filer.min.js"></script>
+
+
+	<script src="assets/plugins/owlcarousel/owl.carousel.min.js"></script>
+	<script src="assets/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	<script>
+		$(function() {
+			$(".content").load("reimendt.fc");
+			doGettouxiang();
+			doloadUI("gerenxiangce", "xiangce.fc");
+			doloadUI("reimendongtai", "reimendt.fc");
+			doloadUI("tianjiahaoyou", "tianjiahaoyou.fc");
+			doloadUI("chakanhaoyou", "chakanhaoyou.fc");
+			doloadUI("gerendongtai", "geRenDongTai.fc");
+			doloadUI("gerenxinxi", "gerenxinxi.fc");
+			doloadUI("xiugaitouxiang", "xiugaitouxiang.fc");
+			//doloadUI("notify-all", "showview.fc");
+			doloadUI("haoyoudongtai", "haoyoudongtai.fc");
+			doloadUI("xiugaimima", "xiugaimima.fc");
+			doloadUI("showview", "showview.fc");
+			find();
+			$("#zhuce").click(function() {
+				$(".adminbody").load("login.fc")
+			})
+			$("#denglu").click(function() {
+				$(".adminbody").load("enter.fc")
+			})
+		})
+
+		function doGettouxiang() {
+			var url = "finduserpictureurl.fc";
+			$.getJSON(url, function(result) {
+				$("#touxiangsrc").attr("src", result.message);
+				if (result.message == null) {
+					$("#touxiangsrc").attr("src",
+							"assets/images/avatars/admin.png");
+				}
+			});//ajax
+		}
+
+		function doloadUI(button, url) {
+			$("#" + button).click(function() {
+				$(".content").load(url);
+			});
+		}
+		function find() {
+
+			var url = "doFindLiuyan.fc";
+			$.getJSON(url, function(result) {
+				//console.log(result)
+				dofind(result);
+			})
+		}
+
+		function dofind(result) {
+			if (result.state == 1) {
+				//显示数据到客户端
+				t = result.data.recodes
+				$(".messageCount").html(Object.keys(t).length);
+				//console.log(Object.keys(t).length)
+				//var count=result.data.rocodes.length
+				//showcounts(result)
+				showLiuyan(result.data.recodes);
+			} else {
+				alert(result.message);
+			}
+		}
+		function showLiuyan(data) {
+			//console.log(111);
+			var h = $("h");
+			h.empty();
+			//迭代数据
+			for (var i = 0; i < data.length; i++) {
+				var tds = doCreateTds(data[i])
+				h.append(tds)
+			}
+		}
+
+		function timestampToTime(timestamp) {
+			//var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+			var date = new Date(timestamp);
+			Y = date.getFullYear() + '-';
+			M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date
+					.getMonth() + 1)
+					+ '-';
+			D = date.getDate() + ' ';
+			h = date.getHours() + ':';
+			m = (date.getMinutes() < 10 ? '0' + (date.getMinutes()) : date
+					.getMinutes())
+					+ ':';
+			s = (date.getSeconds() < 10 ? '0' + (date.getSeconds()) : date
+					.getSeconds());
+			return Y + M + D + h + m + s;
+		}
+
+		function doCreateTds(data) {
+			//console.log(data);
+			var tds = "<a href='#' class='dropdown-item notify-item' ><p class='notify-details ml-0'><b>"
+					+ data.user_name
+					+ "</b><span>"
+					+ data.content
+					+ "</span><small class='text-muted'>"
+					+ timestampToTime(data.createtime) + "</small></p></a>"
+			return tds;
+
+		}
+	</script>
+	<!-- END Java Script for this page -->
+	<script type="text/javascript">
+		function doLogin() {
+
+			var params = {
+				user_email : $("#email").val(),
+				user_password : $("#password").val()
+			}
+			var url = "doLogin.fc";
+			$.post(url, params, function(result) {
+				if (result.state == 1) {
+					//跳转到indexUI对应的页面
+					location.href = "hello.fc?t=" + Math.random();
+					//console.log(123);
+				} else {
+					$(".login-box-msg").html(result.message);
+				}
+				return false;//防止刷新时重复提交
+			});
+		}
+	</script>
+</body>
+</html>

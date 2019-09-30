@@ -1,0 +1,141 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="breadcrumb-holder">
+				<h1 class="main-title float-left">添加说说</h1>
+				<ol class="breadcrumb float-right">
+					<li class="breadcrumb-item">首页</li>
+					<li class="breadcrumb-item">说说</li>
+					<li class="breadcrumb-item active">添加说说</li>
+				</ol>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<!-- end row -->
+	<div class="row">
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+			<div class="card mb-3">
+
+				<div class="card-body">
+
+					<!-- <form action="#" method="post" enctype="multipart/form-data">	 -->
+					<div class="row">
+						<div class="form-group col-xl-12 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label>内容</label>
+								<textarea rows="3" class="form-control editor" name="content"
+									id="shuocontent"></textarea>
+							</div>
+
+							<form action="<%=basePath%>UploadImage" method="post"
+								id="uploadForm" enctype="multipart/form-data">
+								<div class="form-group">
+									<label> 图片</label><br />
+									<div id="avatar_image">
+										<!--头像路径-->
+										<img alt="image" id="preview"
+											style="max-width: 100px; height: auto;"
+											src="assets/images/avatars/white.jpg" /> <br />
+
+									</div>
+									<input type="hidden" name="picture" value="uploadpic">
+									<!-- <input type="file" name="image" id="shuopictrue"> -->
+									<input type="file" id="pic" name="pic"
+										onchange="imgPreview(this)"> <input type="button"
+										value="上传" onclick="doUpload();">
+								</div>
+							</form>
+							<!-- </form> -->
+							<div class="form-group">
+								<button type="button" class="btn btn-primary" id="fabiao">发表说说</button>
+							</div>
+						</div>
+
+
+
+					</div>
+					<!-- end row -->
+					</form>
+
+				</div>
+				<!-- end card-body -->
+
+			</div>
+			<!-- end card -->
+
+		</div>
+		<!-- end col -->
+
+	</div>
+	<!-- end row -->
+
+
+
+</div>
+<!-- END container-fluid -->
+<script>
+function doUpload() {
+	//debugger;
+	var formData = new FormData($("#uploadForm")[0]);
+	$.ajax({
+		url : 'UploadImage', /*这是处理文件上传的servlet*/
+		type : 'POST',
+		data : formData,
+		async : false,
+		cache : false,
+		contentType : false,
+		processData : false,
+		success : function(returndata) {
+			alert("上传成功");
+			$(".content").data("pricture_id", returndata)
+		},
+		error : function(returndata) {
+			alert(returndata);
+		}
+	});
+}
+	$(document).ready(function() {
+		
+		$("#fabiao").click(function() {
+			var url = "doAddShuo.fc";
+			var param = {
+				"shuo_text" : $("#shuocontent").val(),
+				"pricture_id" : $(".content").data("pricture_id")
+			}
+			$.post(url, param, function(result) {
+				alert(result.message)
+				
+				$(".content").load("geRenDongTai.fc");
+				$(".content").removeData();
+			})
+		})
+	});
+	
+	function imgPreview(fileDom) {
+		//判断是否支持FileReader
+		if (window.FileReader) {
+			var reader = new FileReader();
+		} else {
+			alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+		}
+		//获取文件
+		var file = fileDom.files[0];
+		var imageType = /^image\//;
+		//是否是图片
+		if (!imageType.test(file.type)) {
+			alert("请选择图片！");
+			return;
+		}
+		//读取完成
+		reader.onload = function(e) {
+			//获取图片dom
+			var img = document.getElementById("preview");
+			//图片路径设置为读取的图片
+			img.src = e.target.result;
+		};
+		reader.readAsDataURL(file);
+	}
+</script>
