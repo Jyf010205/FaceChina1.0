@@ -21,7 +21,7 @@ public class XiangCeServiceImpl implements XiangCeSerivce {
 	XiangCeDao XiangCeDao;
 	@Override
 	public int insertImage(MultipartFile[] pictureFile) throws Exception {
-		String FILEPATH="D:/CGB1811WORKSP/FaceChina/src/main/webapp/assets/images/inserts";
+		String FILEPATH="D:/xiangce";
 		String originalFilename="";
 		String newFileName="";
 		int rows = 0;
@@ -43,7 +43,7 @@ public class XiangCeServiceImpl implements XiangCeSerivce {
 	}
 	@Override
 	public int insertImage(MultipartFile pictureFile) throws Exception {
-		String FILEPATH="D:/CGB1811WORKSP/FaceChina/src/main/webapp/assets/images/inserts";
+		String FILEPATH="D:/xiangce";
 		String originalFilename="";
 		String newFileName="";
 		if (pictureFile!=null&&pictureFile.getOriginalFilename()!=null&&pictureFile.getOriginalFilename().length()>0) {
