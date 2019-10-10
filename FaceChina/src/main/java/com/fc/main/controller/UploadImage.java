@@ -58,7 +58,7 @@ public class UploadImage extends HttpServlet {
 			String basePath = getServletContext().getRealPath("/");
 			System.out.println(basePath);
 			picPath = basePath+fileName;
-			picPath = "D:/CGB1811WORKSP/FaceChina/src/main/webapp/assets/images/inserts/"+fileName;
+			picPath = "D:/git测试/FaceChina1.0/FaceChina/src/main/webapp/assets/images/inserts/"+fileName;
 			System.out.println(picPath);
 			//上传文件到部署路劲
 			try {
